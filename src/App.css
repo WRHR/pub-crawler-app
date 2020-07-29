@@ -50,10 +50,7 @@ nav{
 }
 
 .search-bar{
-  margin-top: 10px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
+  margin: 10px;
   color: white;
 }
 
@@ -100,4 +97,10 @@ form > input{
 
 .alert{
   color: red;
+}
+
+.pub-card{
+  background-color: white;
+  margin:10px;
+  cursor: pointer;
 }

@@ -42,7 +42,8 @@ class App extends Component {
   setPubs = (pubs) => this.setState({pubSearch: pubs})
 
   render(){
-    const {user} = this.state
+    const {user, pubSearch} = this.state
+    
     return (
       <div className="App">
         <header>
@@ -62,6 +63,7 @@ class App extends Component {
             path='/'
             component={Home}
             setPubs={this.setPubs}
+            pubSearch={pubSearch}
           />
           <Route exact path='/login' render={(routerProps) => {return <Login setUser={this.setUser} {...routerProps} />} }/>
           <Redirect to='/' />

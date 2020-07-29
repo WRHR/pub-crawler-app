@@ -15,6 +15,10 @@ export default function PubSearch({setPubs}){
         fetch(pubsUrl+searchType+search)
             .then(response => response.json())
             .then(results => setPubs(results))
+            .then(() => {
+                setSearch('')
+                setSearchType('')
+            })
     }
 
     return(
@@ -48,9 +52,16 @@ export default function PubSearch({setPubs}){
                         onChange={typeChange} 
                         type='radio' 
                         name='search-type'
-                        value='by_postal=' 
+                        value='by_name=' 
                     />
                     <label>Area Code</label>
+                    <input 
+                        onChange={typeChange} 
+                        type='radio' 
+                        name='search-type'
+                        value='by_name=' 
+                    />
+                    <label>Pub Name</label>
                 </div>
             </form>
         </div>
