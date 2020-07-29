@@ -8,7 +8,12 @@ import Home from './components/Home'
 class App extends Component {
 
   state = {
-    user:{}
+    user:{},
+    userCrawls:[],
+    favorites:[],
+    crawls:[],
+    pubSearch:[]
+
   }
 
   componentDidMount(){
@@ -34,6 +39,8 @@ class App extends Component {
     })
   }
 
+  setPubs = (pubs) => this.setState({pubSearch: pubs})
+
   render(){
     const {user} = this.state
     return (
@@ -54,6 +61,7 @@ class App extends Component {
             exact
             path='/'
             component={Home}
+            setPubs={this.setPubs}
           />
           <Route exact path='/login' render={(routerProps) => {return <Login setUser={this.setUser} {...routerProps} />} }/>
           <Redirect to='/' />

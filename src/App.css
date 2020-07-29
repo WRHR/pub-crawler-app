@@ -24,6 +24,17 @@ nav{
   align-items: center;
 }
 
+.form-container > form {
+  width: 50%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(12, 78, 109, 0.486);
+  padding: 20px;
+  color: rgb(231, 197, 3);
+  border-radius: 2rem;
+}
+
 .form-container > button{
   width: 50%;
 }
@@ -38,15 +49,27 @@ nav{
   text-shadow: -2px -3px rgb(19, 19, 19);
 }
 
-form{
-  width: 50%;
-  align-items: center;
+.search-bar{
+  margin-top: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  color: white;
+}
+
+.search-bar > form {
   display: flex;
   flex-direction: column;
-  background-color: rgb(12, 78, 109, 0.486);
-  padding: 20px;
-  color: rgb(231, 197, 3);
-  border-radius: 2rem;
+}
+
+.search-bar > form >div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar > form > div > input[type=text] {
+  width: 20rem;
 }
 
 form > h2 {
