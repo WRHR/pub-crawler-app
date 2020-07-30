@@ -1,9 +1,28 @@
 import React, {useState} from 'react'
 
-export default function PubCard({pub}){
+export default function PubCard({pub, favorites, addToFavorites, removeFromFavorites}){
     const [toggle, setToggle] = useState(false)
 
-    const showPubDetail = () => {
+    const handleAddFavorite = (event) => {
+        event.stopPropagation()
+        addToFavorites(pub)
+        favoriteButton()
+    }
+
+    const removeFavorite = (event) => {
+        event.stopPropagation()
+        removeFromFavorites(pub)
+        favoriteButton()
+    }
+
+    const favoriteButton = () => {
+        let favoritePubIds = favorites.map(favorite => favorite.brewery_id)
+        return favoritePubIds.includes(pub.id) 
+            ? <button onClick={removeFavorite} >Unfavorite</button>
+            : <button onClick={handleAddFavorite} >Favorite</button>
+    }
+
+    const showPubDetail = (event) => {
         return(
             <div className='pub-details'>
                 <p>Address: {pub.street}</p>
@@ -13,14 +32,18 @@ export default function PubCard({pub}){
             </div>
         )
     }
-
-    const HandleToggle = () => setToggle(!toggle)
-    const ToggleBack =() => setToggle(!toggle)
-
+    
+    const HandleToggle = (event) => {
+        event.stopPropagation()
+        setToggle(!toggle)
+    }
+    
     return(
-        <li className='pub-card' onClick={HandleToggle} onBlur={ToggleBack}>
+        <li className='pub-card' onClick={HandleToggle}>
             <h3 >{pub.name}</h3>
             {toggle ? showPubDetail() : null}
+            {favoriteButton()}
+            <button>Add to Crawl</button>
         </li>
     )
 }

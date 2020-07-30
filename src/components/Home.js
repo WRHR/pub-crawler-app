@@ -6,7 +6,12 @@ export default function Home(props){
     return(
         <div>
             <PubSearch setPubs={props.setPubs} />
-            <SearchResults pubSearch={props.pubSearch} />
+            <SearchResults 
+                pubSearch={props.pubSearch} 
+                addToFavorites={props.addToFavorites} 
+                removeFromFavorites={props.removeFromFavorites}
+                favorites={props.favorites}
+            />
         </div>
     )
 }

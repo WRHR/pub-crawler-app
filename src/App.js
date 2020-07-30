@@ -4,6 +4,9 @@ import Login from './components/Login';
 import {Route, Switch, Redirect, Link} from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute';
 import Home from './components/Home'
+import MyFavorites from './components/MyFavorites'
+
+const favoritesUrl = "http://localhost:3000/favorites/"
 
 class App extends Component {
 
@@ -34,16 +37,42 @@ class App extends Component {
     .then(response => response.json())
     .then(result => {
       this.setState({
-        user: result.user
+        user: result.user,
+        favorites: result.favorites
       })
     })
   }
 
   setPubs = (pubs) => this.setState({pubSearch: pubs})
 
+  addToFavorites = (pub) => {
+    let pub_name = pub.name
+    let brewery_id = pub.id
+    let favorite = {pub_name, brewery_id}
+    fetch(favoritesUrl, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({favorite})
+    })
+    .then(response => response.json())
+    .then(result => this.setState({favorites: [...this.state.favorites, result.favorite]}))
+  }
+
+  removeFromFavorites = (pub) => {
+    let favorite =  this.state.favorites.filter(favorite=> favorite.brewery_id === pub.id)[0]
+    let updatedFavs = this.state.favorites.filter(favorite => favorite.brewery_id !== pub.id)
+    fetch(favoritesUrl+favorite.id, {
+      method:'DELETE',
+      headers:{"Authorization": `Bearer ${localStorage.token}`}
+    }).then(()=> this.setState({favorites: updatedFavs}))
+  }
+
   render(){
-    const {user, pubSearch} = this.state
-    
+    const {user, pubSearch, favorites} = this.state
+
     return (
       <div className="App">
         <header>
@@ -51,6 +80,8 @@ class App extends Component {
             ? (
               <nav>
                 <h3>Pub Crawler</h3>
+                <Link to='/'>Home</Link>
+                <Link to='/myfavorites'>Favorites</Link>
                 <Link to='/login'>Logout</Link>
               </nav>
             )
@@ -62,8 +93,19 @@ class App extends Component {
             exact
             path='/'
             component={Home}
+            favorites={favorites}
             setPubs={this.setPubs}
             pubSearch={pubSearch}
+            addToFavorites={this.addToFavorites}
+            removeFromFavorites={this.removeFromFavorites}
+          />
+          <PrivateRoute 
+            exact
+            path= '/myfavorites'
+            component={MyFavorites}
+            favorites={favorites}
+            addToFavorites={this.addToFavorites}
+            removeFromFavorites={this.removeFromFavorites}
           />
           <Route exact path='/login' render={(routerProps) => {return <Login setUser={this.setUser} {...routerProps} />} }/>
           <Redirect to='/' />

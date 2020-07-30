@@ -60,9 +60,9 @@ export default class Login extends Component {
                 } else {
                     localStorage.setItem('token', results.token)
                     this.props.setUser(results.user)
+                    this.props.history.push('/')
                 }
             })
-            .then(() => this.props.history.push('/'))
     }
 
     showAlerts = () => this.state.alerts
