@@ -49,19 +49,22 @@ nav{
   text-shadow: -2px -3px rgb(19, 19, 19);
 }
 
+.crawl-form-container{
+  margin: 10px;
+}
+
+.crawl-form-container > form >div {
+  display: flex;
+  justify-content: center;
+}
+
 .search-bar{
   margin: 10px;
   color: white;
 }
 
-.search-bar > form {
-  display: flex;
-  flex-direction: column;
-}
-
 .search-bar > form >div {
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 

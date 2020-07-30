@@ -23,6 +23,7 @@ class App extends Component {
     if(localStorage.token){
       this.authorizeUser()
     }
+    this.getCrawlList()
   }
 
   setUser = (user) => this.setState({user: user})
@@ -41,6 +42,12 @@ class App extends Component {
         favorites: result.favorites
       })
     })
+  }
+
+  getCrawlList = () => {
+    fetch('http://localhost:3000/crawls')
+      .then(response => response.json())
+      .then(results => this.setState({crawls:results}))
   }
 
   setPubs = (pubs) => this.setState({pubSearch: pubs})
@@ -71,7 +78,7 @@ class App extends Component {
   }
 
   render(){
-    const {user, pubSearch, favorites} = this.state
+    const {user, pubSearch, favorites, crawls} = this.state
 
     return (
       <div className="App">
@@ -81,6 +88,7 @@ class App extends Component {
               <nav>
                 <h3>Pub Crawler</h3>
                 <Link to='/'>Home</Link>
+                <Link to='/mycrawls'>My Pub Crawls</Link>
                 <Link to='/myfavorites'>Favorites</Link>
                 <Link to='/login'>Logout</Link>
               </nav>
@@ -93,6 +101,7 @@ class App extends Component {
             exact
             path='/'
             component={Home}
+            crawls={crawls}
             favorites={favorites}
             setPubs={this.setPubs}
             pubSearch={pubSearch}
@@ -106,6 +115,10 @@ class App extends Component {
             favorites={favorites}
             addToFavorites={this.addToFavorites}
             removeFromFavorites={this.removeFromFavorites}
+          />
+          <PrivateRoute 
+            exact
+            path= '/mycrawls'
           />
           <Route exact path='/login' render={(routerProps) => {return <Login setUser={this.setUser} {...routerProps} />} }/>
           <Redirect to='/' />

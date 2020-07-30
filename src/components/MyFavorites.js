@@ -15,7 +15,6 @@ export default class MyFavorites extends Component{
     }
 
     getDetails = (favorite) =>{
-        console.log(favorite)
         fetch(`https://api.openbrewerydb.org/breweries/${favorite}`)
         .then(response => response.json())
         .then(result => this.setState({myFavorites:[...this.state.myFavorites, result]}))
@@ -24,7 +23,6 @@ export default class MyFavorites extends Component{
 
     createFavorites = () => {
         return this.state.myFavorites.map(pub => {
-            console.log(pub)
             return(
                 <PubCard 
                     key={pub.id} 
@@ -44,7 +42,7 @@ export default class MyFavorites extends Component{
             <div className='favorites'>
                 <h1>My Favorite Pubs</h1>
                 <ul>
-                    {this.createFavorites()}}           
+                    {this.createFavorites()}           
                 </ul> 
     
             </div>
