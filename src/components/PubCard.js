@@ -64,13 +64,15 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
         .then(response => response.json())
         .then((result=> setCrawlStops([...crawlStops, result])))
     }
+
+    const crawlStopsId = crawlStops.map(stop => stop.brewery_id)
     
     return(
         <li className='pub-card' onClick={HandleToggle}>
             <h3 >{pub.name}</h3>
             {toggle ? showPubDetail() : null}
             {favoriteButton()}
-            {crawl ? <button onClick={handleAddToCrawl}>Add to Crawl</button> : null }
+            {crawl && !crawlStopsId.includes(pub.id) ? <button onClick={handleAddToCrawl}>Add to Crawl</button> : null }
         </li>
     )
 }

@@ -31,6 +31,7 @@ export default function CrawlDetail({routerProps, user, ...props}){
             headers:{"Authorization": `Bearer ${localStorage.token}`}
         })
             .then(()=> alert('Pub Crawl has been deleted'))
+            .then(()=> props.updateCrawlList(crawl))
             .then(()=>{routerProps.history.push('/')})
     }
 

@@ -49,6 +49,13 @@ class App extends Component {
       .then(results => this.setState({crawls:results}))
   }
 
+  updateCrawlList = (crawl) => {
+    let updatedCrawlList = this.state.crawls.filter(listCrawl => listCrawl.id !== crawl.id)
+    this.setState({
+      crawls: updatedCrawlList
+    })
+  }
+
 
   addToFavorites = (pub) => {
     let pub_name = pub.name
@@ -117,6 +124,7 @@ class App extends Component {
             favorites={favorites}
             addToFavorites={this.addToFavorites}
             removeFromFavorites={this.removeFromFavorites}
+            updateCrawlList={this.updateCrawlList}
           />
           <PrivateRoute 
             exact
