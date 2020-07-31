@@ -16,6 +16,8 @@ export default function CreateCrawl(props) {
             },
             body:JSON.stringify({name})
         })
+            .then(response => response.json())
+            .then((results=> {props.routerProps.history.push(`/crawl/${results.id}`)}))
 
     }
 

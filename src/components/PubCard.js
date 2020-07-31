@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function PubCard({pub, favorites, addToFavorites, removeFromFavorites}){
+export default function PubCard({pub, favorites, addToFavorites, removeFromFavorites, crawl}){
     const [toggle, setToggle] = useState(false)
 
     const handleAddFavorite = (event) => {
@@ -43,7 +43,7 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
             <h3 >{pub.name}</h3>
             {toggle ? showPubDetail() : null}
             {favoriteButton()}
-            <button>Add to Crawl</button>
+            {crawl ? <button>Add to Crawl</button> : null }
         </li>
     )
 }

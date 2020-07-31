@@ -16,8 +16,6 @@ class App extends Component {
     userCrawls:[],
     favorites:[],
     crawls:[],
-    pubSearch:[]
-
   }
 
   componentDidMount(){
@@ -51,7 +49,6 @@ class App extends Component {
       .then(results => this.setState({crawls:results}))
   }
 
-  setPubs = (pubs) => this.setState({pubSearch: pubs})
 
   addToFavorites = (pub) => {
     let pub_name = pub.name
@@ -79,7 +76,7 @@ class App extends Component {
   }
 
   render(){
-    const {user, pubSearch, favorites, crawls} = this.state
+    const {user, favorites, crawls} = this.state
 
     return (
       <div className="App">
@@ -103,11 +100,7 @@ class App extends Component {
             path='/'
             component={Home}
             crawls={crawls}
-            favorites={favorites}
-            setPubs={this.setPubs}
-            pubSearch={pubSearch}
-            addToFavorites={this.addToFavorites}
-            removeFromFavorites={this.removeFromFavorites}
+            
           />
           <PrivateRoute 
             exact
@@ -120,6 +113,10 @@ class App extends Component {
           <PrivateRoute 
             path='/crawl/:id'
             component={CrawlDetail}
+            user={user}
+            favorites={favorites}
+            addToFavorites={this.addToFavorites}
+            removeFromFavorites={this.removeFromFavorites}
           />
           <PrivateRoute 
             exact
