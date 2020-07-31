@@ -38,19 +38,20 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
         setToggle(!toggle)
     }
 
-    const stop = {
-        crawl_id: crawl.id,
-        brewery_id: pub.brewery_id,
-        pub_name: pub.name,
-        pub_address: pub.street,
-        brewery_latitude: pub.latitude,
-        brewery_longitude: pub.longitude,
-        webstie: pub.website
-    }
+    
 
     const handleAddToCrawl = (event) => {
         event.stopPropagation()
 
+        let stop = {
+            crawl_id: crawl.id,
+            brewery_id: pub.id,
+            pub_name: pub.name,
+            pub_address: pub.street,
+            brewery_latitude: pub.latitude,
+            brewery_longitude: pub.longitude,
+            webstie: pub.website
+        }
 
         fetch('http://localhost:3000/stops',{
             method: 'POST',
@@ -60,9 +61,8 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
             },
             body:JSON.stringify({stop})
         })
-
-        setCrawlStops([...crawlStops, stop])
-
+        .then(response => response.json())
+        .then((result=> setCrawlStops([...crawlStops, result])))
     }
     
     return(

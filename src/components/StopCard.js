@@ -15,21 +15,21 @@ export default function StopCard({addToFavorites,removeFromFavorites,stop, favor
     }
 
     const handleAddFavorite = (event) => {
+        event.stopPropagation()
         let pub={
             name:stop.pub_name,
             id:stop.brewery_id
         }
-        event.stopPropagation()
         addToFavorites(pub)
         favoriteButton()
     }
 
     const removeFavorite = (event) => {
+        event.stopPropagation()
         let pub={
             name:stop.pub_name,
             id:stop.brewery_id
         }
-        event.stopPropagation()
         removeFromFavorites(pub)
         favoriteButton()
     }
@@ -53,8 +53,11 @@ export default function StopCard({addToFavorites,removeFromFavorites,stop, favor
             method:'DELETE',
             headers:{"Authorization": `Bearer ${localStorage.token}`},
         })
-        let updatedStops = crawlStops.filter(listStop => listStop.id !== stop.id)
-        setCrawlStops(updatedStops)
+        .then(() => {
+            let updatedStops = crawlStops.filter(listStop => listStop.id !==stop.id)
+            setCrawlStops(updatedStops)
+
+        })
     }
 
     return(
