@@ -10,6 +10,7 @@ export default function Crawls({crawls}){
 
     return(
         <div className='crawl-list'>
+            <h1>Popular Crawls</h1>
             <ul>
                 {displayCrawls()}
             </ul>

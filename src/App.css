@@ -49,6 +49,28 @@ nav{
   text-shadow: -2px -3px rgb(19, 19, 19);
 }
 
+.crawl-list{
+  margin: 10px;
+  text-align: center;
+  background-color: grey;
+}
+
+.crawl-list > ul{
+  text-align: center;
+  display: flex;
+  /* justify-content: center; */
+  overflow-x: scroll;
+}
+
+.crawl-list > ul > li {
+  background-color: white;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 1rem;
+  cursor: pointer;
+  min-width: 135px;
+}
+
 .crawl-form-container{
   margin: 10px;
 }

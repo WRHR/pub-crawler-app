@@ -5,6 +5,7 @@ import {Route, Switch, Redirect, Link} from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute';
 import Home from './components/Home'
 import MyFavorites from './components/MyFavorites'
+import CrawlDetail from './components/CrawlDetail'
 
 const favoritesUrl = "http://localhost:3000/favorites/"
 
@@ -117,8 +118,12 @@ class App extends Component {
             removeFromFavorites={this.removeFromFavorites}
           />
           <PrivateRoute 
+            path='/crawl/:id'
+            component={CrawlDetail}
+          />
+          <PrivateRoute 
             exact
-            path= '/mycrawls'
+            path= '/mycrawl'
           />
           <Route exact path='/login' render={(routerProps) => {return <Login setUser={this.setUser} {...routerProps} />} }/>
           <Redirect to='/' />
