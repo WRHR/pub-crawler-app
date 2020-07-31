@@ -6,7 +6,7 @@ const Map = (props) => {
     return (
         <GoogleMap
             defaultZoom={10} 
-            defaultCenter={{ lat: props.crawlStops[0]['brewery_latitude'], lng: props.crawlStops[0]['brewery_longitude']}}
+            defaultCenter={{lat: 39.7392, lng:-104.9903}}
         >
             {props.crawlStops.map( crawlStop => 
                 <Marker 

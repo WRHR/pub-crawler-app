@@ -39,10 +39,9 @@ export default function CrawlDetail({routerProps, user, ...props}){
 
 
     return(
-        <div >
+        <div style={{width: '100vw', display:'flex',flexDirection:'column', alignItems:'center'}}>
             <div className='crawl-detail'>
-                <h1>{crawl.name}</h1>
-                <div style={{width: '100%'}}>
+                <div style={{width: '100vh'}}>
                     <WrappedMap 
                         crawlStops={crawlStops}
                         googleMapURL={`http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}
@@ -50,6 +49,13 @@ export default function CrawlDetail({routerProps, user, ...props}){
                         containerElement={<div style={{height: '400px'}}/>}    
                         mapElement={<div style={{height: '400px'}}/>}    
                     />
+                </div>
+                <div className='title'>
+                    <h1>{crawl.name}</h1>
+                    {crawl.user_id === user.id 
+                        && <button onClick={handleDelete}>Delete Crawl</button>}
+                </div>
+                <div style={{ display:'flex', }}>
                     <Stops 
                         crawlStops={crawlStops}
                         addToFavorites={props.addToFavorites} 
@@ -60,11 +66,9 @@ export default function CrawlDetail({routerProps, user, ...props}){
                         setCrawlStops={setCrawlStops}
                     />
 
-                </div>
-            </div>
             {crawl.user_id === user.id 
-                ? (
-                    <>
+                && (
+                    <div className='user-controls'>
                         <PubSearch setPubs={setPubSerch} />
                         <SearchResults 
                             pubSearch={pubSearch} 
@@ -75,12 +79,12 @@ export default function CrawlDetail({routerProps, user, ...props}){
                             crawlStops={crawlStops}
                             setCrawlStops={setCrawlStops}
                         />
-                        {/* <button onClick={handleEditForm}>Edit Pub Crawl</button> */}
-                        <button onClick={handleDelete}>Delete Crawl</button>
-                    </>
+                        
+                    </div>
                 )
-                : null
              }
+                </div>
+            </div>
 
         </div>
     )

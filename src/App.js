@@ -92,10 +92,11 @@ class App extends Component {
             ? (
               <nav>
                 <h3>Pub Crawler</h3>
+                <div>
                 <Link to='/'>Home</Link>
-                <Link to='/mycrawls'>My Pub Crawls</Link>
                 <Link to='/myfavorites'>Favorites</Link>
                 <Link to='/login'>Logout</Link>
+                </div>
               </nav>
             )
             : null

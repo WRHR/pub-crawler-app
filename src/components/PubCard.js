@@ -28,6 +28,7 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
                 <p>Address: {pub.street}</p>
                 <p>City: {pub.city}</p>
                 <p>State: {pub.state}</p>
+                {pub.latitude && <p>Lat:{pub.latitude} Long:{pub.longitude}</p>}
                 {pub.website_url ? <a href={pub.website_url} target='_blank'>Website</a> : null}
             </div>
         )

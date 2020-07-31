@@ -23,6 +23,7 @@ export default function PubSearch({setPubs}){
 
     return(
         <div className='search-bar' >
+            <h3>Add Stops</h3>
             <form onSubmit={submitSearch}>
                 <div>
                     <input 
