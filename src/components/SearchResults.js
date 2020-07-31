@@ -1,7 +1,7 @@
 import React from 'react'
 import PubCard from './PubCard'
 
-export default function SearchResults({pubSearch, addToFavorites, removeFromFavorites, favorites, crawl}){
+export default function SearchResults({pubSearch, addToFavorites, removeFromFavorites, favorites, crawl, crawlStops, setCrawlStops}){
 
     const showResults = () => {
         return pubSearch.map(pub => 
@@ -12,6 +12,8 @@ export default function SearchResults({pubSearch, addToFavorites, removeFromFavo
                 pub={pub} 
                 favorites={favorites}
                 crawl={crawl}
+                crawlStops={crawlStops}
+                setCrawlStops={setCrawlStops}
             />)
     }
 

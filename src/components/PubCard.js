@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function PubCard({pub, favorites, addToFavorites, removeFromFavorites, crawl}){
+export default function PubCard({pub, favorites, addToFavorites, removeFromFavorites, crawl, crawlStops, setCrawlStops}){
     const [toggle, setToggle] = useState(false)
 
     const handleAddFavorite = (event) => {
@@ -37,13 +37,40 @@ export default function PubCard({pub, favorites, addToFavorites, removeFromFavor
         event.stopPropagation()
         setToggle(!toggle)
     }
+
+    const stop = {
+        crawl_id: crawl.id,
+        brewery_id: pub.brewery_id,
+        pub_name: pub.name,
+        pub_address: pub.street,
+        brewery_latitude: pub.latitude,
+        brewery_longitude: pub.longitude,
+        webstie: pub.website
+    }
+
+    const handleAddToCrawl = (event) => {
+        event.stopPropagation()
+
+
+        fetch('http://localhost:3000/stops',{
+            method: 'POST',
+            headers:{
+                "Authorization": `Bearer ${localStorage.token}`,
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({stop})
+        })
+
+        setCrawlStops([...crawlStops, stop])
+
+    }
     
     return(
         <li className='pub-card' onClick={HandleToggle}>
             <h3 >{pub.name}</h3>
             {toggle ? showPubDetail() : null}
             {favoriteButton()}
-            {crawl ? <button>Add to Crawl</button> : null }
+            {crawl ? <button onClick={handleAddToCrawl}>Add to Crawl</button> : null }
         </li>
     )
 }

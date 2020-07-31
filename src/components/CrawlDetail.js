@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PubSearch from './PubSearch'
 import SearchResults from './SearchResults'
+import Stops from './Stops'
 
 export default function CrawlDetail({routerProps, user, ...props}){
     const crawlURL = `http://localhost:3000/crawls/${routerProps.match.params.id}`
@@ -12,17 +13,15 @@ export default function CrawlDetail({routerProps, user, ...props}){
 
     useEffect(()=>{    
         fetchCrawl()
-        fetchStops()
     }, [])
 
     const fetchCrawl = () => {
         fetch(crawlURL)
             .then(response => response.json())
-            .then(results => setCrawl(results.crawl))
-    }
-
-    const fetchStops = () => {
-        
+            .then(results => {
+                setCrawl(results.crawl)
+                setCrawlStops(results.stops)
+            })
     }
 
     const handleDelete= (event)=> {
@@ -33,19 +32,21 @@ export default function CrawlDetail({routerProps, user, ...props}){
         })
             .then(()=> alert('Pub Crawl has been deleted'))
             .then(()=>{routerProps.history.push('/')})
-
     }
-
-    // const handleEditForm = (event) => {
-    //     event.stopPropagation()
-    // }
 
     return(
         <div >
             <div className='crawl-detail'>
                 <h1>{crawl.name}</h1>
-                <h3>Pub Stops</h3>
-
+                <Stops 
+                    crawlStops={crawlStops}
+                    addToFavorites={props.addToFavorites} 
+                    removeFromFavorites={props.removeFromFavorites}
+                    favorites={props.favorites}
+                    crawl={crawl}
+                    crawlStops={crawlStops}
+                    setCrawlStops={setCrawlStops}
+                />
             </div>
             {crawl.user_id === user.id 
                 ? (
@@ -57,6 +58,8 @@ export default function CrawlDetail({routerProps, user, ...props}){
                             removeFromFavorites={props.removeFromFavorites}
                             favorites={props.favorites}
                             crawl={crawl}
+                            crawlStops={crawlStops}
+                            setCrawlStops={setCrawlStops}
                         />
                         {/* <button onClick={handleEditForm}>Edit Pub Crawl</button> */}
                         <button onClick={handleDelete}>Delete Crawl</button>
